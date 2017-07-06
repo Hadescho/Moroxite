@@ -21,10 +21,10 @@ defmodule MoroxiteServer.Providers.Reddit.FetcherTest do
     catch_error Fetcher.build_link("test", "invalid")
   end
 
-  test "get_map returns map when given correct link" do
+  test "build_map returns map when given correct link" do
     map = "test"
           |> Fetcher.build_link()
-          |> Fetcher.get_map()
+          |> Fetcher.build_map()
     assert (map["kind"] == "Listing")
   end
 
@@ -35,5 +35,10 @@ defmodule MoroxiteServer.Providers.Reddit.FetcherTest do
     result = Fetcher.filter_over_18(map)
     refute Enum.any?(get_in(result, ["data", "children"]),
                      &(get_in(&1, ["data", "over_18"])))
+  end
+
+  test "fetch will return tuple of provider name and result urls" do
+    {name, result} = Fetcher.fetch("test")
+    assert name == "Reddit" && is_list(result)
   end
 end

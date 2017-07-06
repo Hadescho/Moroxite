@@ -5,6 +5,8 @@ defmodule MoroxiteServer.Providers.Reddit.Fetcher do
 
   @valid_listings ["new", "hot", "rising", "top", "controversial"]
 
+  @behaviour Fetcher
+
   @doc """
   Build the link based on a ```reddit_name```
 
@@ -22,7 +24,7 @@ defmodule MoroxiteServer.Providers.Reddit.Fetcher do
 
   `link` should be a string containing link to reddit json listing
   """
-  def get_map(link) do
+  def build_map(link) do
     case get_json(link) do
       {:ok, body} ->
         {:ok, map} = Poison.decode(body)
@@ -84,5 +86,17 @@ defmodule MoroxiteServer.Providers.Reddit.Fetcher do
     Enum.map(sources, &(%{tags: tags,
                           url: &1["url"],
                           size: {(&1["width"]), &1["height"]}}))
+  end
+
+  @doc """
+  Implementation of the fetch method for the Fetcher behaviour
+  """
+  def fetch(identificator) do
+    list = identificator
+           |> build_link
+           |> build_map
+           |> filter_over_18
+           |> build_list
+    {"Reddit", list}
   end
 end
