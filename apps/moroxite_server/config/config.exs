@@ -28,3 +28,13 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
+if Mix.env == :test do
+  # config :logger, level: :debug
+end
+
+if Mix.env == :dev || Mix.env == :test do
+  config :exvcr, [
+    vcr_cassette_library_dir: "fixture/vcr_cassettes",
+    custom_cassette_library_dir: "fixture/custom_cassettes"
+  ]
+end

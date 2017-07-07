@@ -40,7 +40,8 @@ defmodule MoroxiteServer.Mixfile do
   defp deps do
     [{:httpoison, "~> 0.12"},
      {:poison, "~> 3.1"},
-     {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+     {:exvcr, "~> 0.8", only: [:dev, :test]}
     ]
   end
 end
