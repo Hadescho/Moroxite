@@ -1,6 +1,6 @@
-defmodule MoroxiteSeverTest do
+defmodule MoroxiteServerTest do
   use ExUnit.Case
-  doctest MoroxiteSever
+  doctest MoroxiteServer
 
   test "the truth" do
     assert 1 + 1 == 2

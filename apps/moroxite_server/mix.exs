@@ -1,8 +1,8 @@
-defmodule MoroxiteSever.Mixfile do
+defmodule MoroxiteServer.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :moroxite_sever,
+    [app: :moroxite_server,
      version: "0.1.0",
      build_path: "../../_build",
      config_path: "../../config/config.exs",
@@ -21,7 +21,7 @@ defmodule MoroxiteSever.Mixfile do
     # Specify extra applications you'll use from Erlang/Elixir
     [applications: [:httpoison],
      extra_applications: [:logger],
-     mod: {MoroxiteSever.Application, []}]
+     mod: {MoroxiteServer.Application, []}]
   end
 
   # Dependencies can be Hex packages:

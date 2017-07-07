@@ -1,4 +1,4 @@
-defmodule MoroxiteSever.Application do
+defmodule MoroxiteServer.Application do
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,11 +8,16 @@ defmodule MoroxiteSever.Application do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
+    alias :mnesia, as: Mnesia
+    Mnesia.start()
     # Define workers and child supervisors to be supervised
     children = [
+      worker(MoroxiteServer.Downloader, []),
+      supervisor(Task.Supervisor,
+                 [[name: MoroxiteServer.DownloadTaskSupervisor]])
       # Starts a worker by calling:
-      #   MoroxiteSever.Worker.start_link(arg1, arg2, arg3)
-      #   worker(MoroxiteSever.Worker, [arg1, arg2, arg3]),
+      #   MoroxiteServer.Worker.start_link(arg1, arg2, arg3)
+      #   worker(MoroxiteServer.Worker, [arg1, arg2, arg3]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

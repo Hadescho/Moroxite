@@ -1,5 +1,5 @@
-defmodule MoroxiteSever do
+defmodule MoroxiteServer do
   @moduledoc """
-  Documentation for MoroxiteSever.
+  Documentation for MoroxiteServer.
   """
 end
