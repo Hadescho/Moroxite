@@ -1,9 +1,12 @@
 defmodule MoroxiteServer.Downloader do
   use GenServer
+
   require Logger
+
   alias MoroxiteServer.DownloadTaskSupervisor, as: DownloadSupervisor
   alias MoroxiteServer.MimeType
   alias HTTPoison.Response
+
   @moduledoc """
   This module is responsble for providing an interface for downloading images
   from the interwebz
@@ -74,14 +77,12 @@ defmodule MoroxiteServer.Downloader do
     {:noreply, new_state}
   end
 
-  @doc """
-  Downloads the image on `url` and save it to the given path.
-
-  If the operation is successfull, return :ok
-  If `url` isn't a url to an image return a :not_image
-  If the write fails, return whatever error File.write returns
-  """
-  def download_and_save(url, path) do
+  # Downloads the image on `url` and save it to the given path.
+  #
+  # If the operation is successfull, return :ok
+  # If `url` isn't a url to an image return a :not_image
+  # If the write fails, return whatever error File.write returns
+  defp download_and_save(url, path) do
     case download(url) do
       :not_image ->
         Logger.info("The content on #{url} is not an image")
@@ -98,13 +99,11 @@ defmodule MoroxiteServer.Downloader do
     end
   end
 
-  @doc """
-  Downloads the image on `url` and returns {file_content, extension}
-  If the response from the `url` doesn't contain image return error.
-  For now the implementation won't use "Accepts" header since I'm not sure if
-  all webservers will respond correctly if given Accepts with only image MIMEs
-  """
-  def download(url) do
+  # Downloads the image on `url` and returns {file_content, extension}
+  # If the response from the `url` doesn't contain image return error.
+  # For now the implementation won't use "Accepts" header since I'm not sure if
+  # all webservers will respond correctly if given Accepts with only image MIMEs
+  defp download(url) do
     case HTTPoison.get(url) do
       {:ok, %Response{body: body, headers: headers}} ->
         c_type = get_header(headers, "Content-Type")
