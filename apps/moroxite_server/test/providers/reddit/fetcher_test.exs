@@ -1,5 +1,5 @@
 defmodule MoroxiteServer.Providers.Reddit.FetcherTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest MoroxiteServer.Providers.Reddit.Fetcher
   alias MoroxiteServer.Providers.Reddit.Fetcher
 

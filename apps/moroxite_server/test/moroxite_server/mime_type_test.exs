@@ -1,5 +1,5 @@
 defmodule MoroxiteServer.MimeTypeTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest MoroxiteServer.MimeType
   alias MoroxiteServer.MimeType
 
@@ -14,6 +14,7 @@ defmodule MoroxiteServer.MimeTypeTest do
     refute MimeType.image?("")
   end
 
+  @tag :todo
   test "image? should check the actual existance of the mimetype" do
     refute MimeType.image?("image/jpg")
   end
