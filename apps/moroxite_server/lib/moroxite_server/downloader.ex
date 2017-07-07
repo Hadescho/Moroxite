@@ -106,7 +106,7 @@ defmodule MoroxiteServer.Downloader do
   """
   def download(url) do
     case HTTPoison.get(url) do
-      {:ok, %Response{body: body, headers: headers  }} ->
+      {:ok, %Response{body: body, headers: headers}} ->
         c_type = get_header(headers, "Content-Type")
 
         case MimeType.image?(c_type) do
@@ -116,7 +116,6 @@ defmodule MoroxiteServer.Downloader do
       _ -> :error
     end
   end
-
 
 # Shamelessly stolen from the HTTPoison test files
 # https://github.com/edgurgel/httpoison/blob/master/test/httpoison_test.exs#L215
